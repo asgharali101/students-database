@@ -29,7 +29,7 @@ if (isset($_POST["teacher"])) {
             <input type="text" name="teacher" placeholder="Enter class name" required
                 class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
 
-            <input type="submit" value=""
+            <input type="submit" value="Add Teacher"
                 class="w-full py-2 bg-blue-500 text-white font-semibold rounded-md hover:bg-blue-600 transition duration-200 cursor-pointer">
         </form>
     </div>

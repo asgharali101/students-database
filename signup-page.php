@@ -32,15 +32,7 @@ if (isset($_POST["email"])) {
 
 ?>
 
-<?php
-require_once('database_connection.php');
-require_once('helpers.php');
-session_start();
 
-if (isset($_POST["email"])) {
-    // Existing registration logic here
-}
-?>
 
 <!DOCTYPE html>
 <html lang="en">

@@ -3,15 +3,15 @@
 require_once '../database_connection.php';
 $id = $_GET["id"];
 if (isset($_POST["teacher_id"])) {
-    $teachers = $_POST["teacher_id"];
+    $teachers_id = $_POST["teacher_id"] ?? null;
 
-    $teachersInRow = $conn->exec("UPDATE teachers set name='$teachers'  WHERE id =$id");
+    $teachersInRow = $conn->exec("UPDATE teachers set name='$teachers_id'  WHERE id =$id");
     header("location:teacher_list.php");
 }
 
 
-$teacherstmt = $conn->query("SELECT * from teachers");
-$teachers = $teacherstmt->fetchAll(PDO::FETCH_ASSOC);
+// $teacherstmt = $conn->query("SELECT * from teachers");
+// $teachers = $teacherstmt->fetchAll(PDO::FETCH_ASSOC);
 
 $stmt = $conn->query("select * from teachers WHERE id =$id");
 $currentteacher = $stmt->fetch(PDO::FETCH_ASSOC);

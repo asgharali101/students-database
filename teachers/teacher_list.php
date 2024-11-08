@@ -1,8 +1,8 @@
 <?php
 $conn = new PDO("mysql:host=localhost;dbname=students", 'root', '');
 
-$stmt = $conn->query("SELECT subjects.*, teachers.name as teacher_name FROM subjects LEFT JOIN teachers ON subjects.teacher_id = teachers.id ORDER BY subjects.id DESC");
-$subjects = $stmt->fetchAll(PDO::FETCH_ASSOC);
+$stmt = $conn->query("SELECT teachers.*, teachers.name as teacher_name FROM subjects LEFT JOIN teachers ON subjects.teacher_id = teachers.id ORDER BY subjects.id DESC");
+$teacherList = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
 <!DOCTYPE html>
@@ -15,39 +15,47 @@ $subjects = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
-<body class="bg-gray-200 p-8">
+<body class="bg-gray-100 px-40 w-full  flex  justify-center">
 
-    <div class="max-w-4xl mx-auto bg-white p-6 rounded-lg shadow-lg">
-        <h1 class="text-3xl font-bold text-gray-800 mb-6 text-center">Subjects List</h1>
-
-        <div class="flex justify-between mb-6">
-            <a href="add-subjects.php" class="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600 transition duration-200">Add Subjects</a>
-            <a href="../index.php" class="bg-purple-500 text-white px-4 py-2 rounded-md hover:bg-purple-600 transition duration-200">Home Page</a>
+    <div class="w-full">
+        <!-- Buttons -->
+        <div class="flex mb-6 space-x-6 flex justify-between">
+            <a href="add-teachers.php" class="inline-block px-8 py-3 bg-gradient-to-r from-blue-500 to-blue-700 text-white text-lg font-semibold rounded-xl shadow-lg hover:from-blue-600 hover:to-blue-800 transition duration-300 transform hover:scale-105 min-w-max">
+                Add Teacher
+            </a>
+            <a href="../index.php" class="inline-block px-8 py-3 bg-gradient-to-r from-gray-600 to-gray-800 text-white text-lg font-semibold rounded-xl shadow-lg hover:from-gray-700 hover:to-gray-900 transition duration-300 transform hover:scale-105 min-w-max">
+                Home Page
+            </a>
         </div>
 
-        <table class="min-w-full bg-white border border-gray-200 rounded-lg overflow-hidden shadow-md">
-            <thead class="bg-blue-600 text-white">
-                <tr>
-                    <th class="py-3 px-4 text-left">ID</th>
-                    <th class="py-3 px-4 text-left">Subject Name</th>
-                    <th class="py-3 px-4 text-left">Teacher</th>
-                    <th class="py-3 px-4 text-left">Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php foreach ($subjects as $subject) { ?>
-                    <tr class="border-b border-gray-200 hover:bg-gray-100 transition duration-200">
-                        <td class="py-3 px-4"><?php echo $subject['id'] ?></td>
-                        <td class="py-3 px-4"><?php echo $subject['name'] ?></td>
-                        <td class="py-3 px-4"><?php echo $subject["teacher_name"] ?></td>
-                        <td class="py-3 px-4">
-                            <a href="edit.php?id=<?php echo $subject['id'] ?>" class="text-blue-500 hover:text-blue-700 mr-4 transition duration-200">Edit</a>
-                            <a href="delete.php?id=<?php echo $subject['id'] ?>" class="text-red-500 hover:text-red-700 transition duration-200">Delete</a>
-                        </td>
+        <!-- Table -->
+        <div class="overflow-x-auto bg-white rounded-lg shadow-lg">
+            <table class="min-w-full table-auto border-collapse">
+                <thead class="bg-gray-200 text-gray-800">
+                    <tr>
+                        <th class="py-3 px-6 text-left text-lg font-medium border-b border-gray-300">ID</th>
+                        <th class="py-3 px-6 text-left text-lg font-medium border-b border-gray-300">Name</th>
+                        <th class="py-3 px-6 text-left text-lg font-medium border-b border-gray-300">Actions</th>
                     </tr>
-                <?php } ?>
-            </tbody>
-        </table>
+                </thead>
+                <tbody class="text-gray-700">
+                    <?php foreach ($teacherList as $teacher) { ?>
+                        <tr class="hover:bg-gray-50 border-b border-gray-200">
+                            <td class="py-3 px-6"><?php echo $teacher['id'] ?></td>
+                            <td class="py-3 px-6"><?php echo $teacher['teacher_name'] ?></td>
+                            <td class="py-3 px-6">
+                                <a href="edit.php?id=<?php echo $teacher['id'] ?>" class="inline-block px-4 py-2 text-sm text-white bg-green-500 rounded-lg hover:bg-green-600 transition duration-300">
+                                    Edit
+                                </a>
+                                <a href="delete.php?id=<?php echo $teacher['id'] ?>" class="inline-block px-4 py-2 text-sm text-white bg-red-500 rounded-lg hover:bg-red-600 ml-4 transition duration-300">
+                                    Delete
+                                </a>
+                            </td>
+                        </tr>
+                    <?php } ?>
+                </tbody>
+            </table>
+        </div>
     </div>
 
 </body>
